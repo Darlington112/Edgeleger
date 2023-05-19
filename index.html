@@ -207,15 +207,15 @@
                         <form class="callback-form" name="contact" method="post" netlify>
                             <div class="form-control">
                                 <label for="name">Name</label>
-                                <input type="text" name="name" id="name" placeholder="Enter Name">
+                                <input type="text" name="name" value="Enter Name">
 
                                 <label for="email">Email</label>
-                                <input type="email" name="email" id="email" placeholder="Enter Email">
+                                <input type="email" name="email" value="Enter Email">
 
                                 <label for="contact">Contact</label>
-                                <input type="text" name="contact" id="contact" placeholder="Enter Phone Number">
+                                <input type="text" name="contact" value="Enter Phone Number">
                             </div>
-                            <input type="submit" value="Send" id="submit" class="btn">
+                            <input type="submit" id="submit" class="btn">
                     </div>
                 </div>
             </div>
@@ -267,6 +267,26 @@
 
             }
         });
+
+        const handleSubmit = (event) => {
+            event.preventDefault();
+
+            const myForm = event.target;
+            const formData = new FormData(myForm);
+
+            fetch("/", {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString(),
+            })
+                .then(() => console.log("Form successfully submitted"))
+                .catch((error) => alert(error));
+        };
+
+        document
+            .querySelector("form")
+            .addEventListener("submit", handleSubmit);
+
 
     </script>
 
